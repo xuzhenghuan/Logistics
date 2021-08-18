@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Logistics.IDAL;
+using Logistics.IDAL.Istaff;
+using Logistics.DAL.Staff;
 using Logistics.DAL;
 using System.IO;
 using Logistics.Common;
@@ -37,6 +39,7 @@ namespace Logistics.API
             services.AddSingleton<IRole, RoleDal>();//角色注入
             services.AddSingleton<IPower, PowerDal>();//菜单注入
             services.AddSingleton<ICar, CarDal>();//车辆注入
+            services.AddSingleton<IStaffInfo, StaffInfoDal>();
 
             Connection.MSSql = Configuration.GetConnectionString("default");//获取json文件中数据库连接字符串存入connection类中mssql字段
 
