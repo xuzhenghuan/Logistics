@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Logistics.IDAL;
+using Microsoft.AspNetCore.Authorization;
+using Logistics.Common.Filter;
+using Logistics.MODEL.Log4;
 
 namespace Logistics.API.Controllers
 {
@@ -13,6 +16,7 @@ namespace Logistics.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class RoleController : ControllerBase
     {
         private IRole role;

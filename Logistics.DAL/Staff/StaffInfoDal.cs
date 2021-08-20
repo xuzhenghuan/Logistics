@@ -12,9 +12,20 @@ namespace Logistics.DAL.Staff
     public class StaffInfoDal : DapperHelper<StaffViewModel>,IStaffInfo
     {
         //查询部门员工
-        public List<StaffViewModel> GetStaInfo()
+        public List<StaffViewModel> GetStaInfo(string name,string phone)
         {
-            string sql = "select a.InfoName,a.InfoSex,c.BumenName,b.BumenName as Bumendeng,a.InfoPhone,a.InfoSchool,a.InfoZhuan,a.InfoHome,a.InfoCreateTime,a.InfoAge,a.InfoType,a.InfoZhuang,a.InfoUpdate from StaffInfo a  join StaffBumen b on a.ZhiweiIdFor = b.BumenId join StaffBumen c on a.BumenIdFor = c.BumenId";
+            string sql = "select a.InfoId,a.InfoName,a.InfoSex,c.BumenName,b.BumenName as Bumendeng,a.InfoPhone,a.InfoSchool,a.InfoZhuan,a.InfoHome,a.InfoCreateTime,a.InfoAge,a.InfoType,a.InfoZhuang,a.InfoUpdate from StaffInfo a  join StaffBumen b on a.ZhiweiIdFor = b.BumenId join StaffBumen c on a.BumenIdFor = c.BumenId where 1 = 1";
+
+            //判断是否为默认条件
+            if(name!="")
+            {
+                sql += $" and a.InfoName like '%{name}%'";
+            }
+
+            if(phone!="")
+            {
+                sql += $" and a.InfoPhone like '%{phone}%'";
+            }
 
             List<StaffViewModel> data = QueryCha(sql);
             return data;
@@ -40,6 +51,24 @@ namespace Logistics.DAL.Staff
             //}
             int count = Command(sql,m);
             return count;
+        }
+
+        //删除员工信息
+        public int StaffInfoDel(int id)
+        {
+            string sql = "delete from StaffInfo where InfoId = @id";
+
+            int count = CommandDel(sql, id);
+            return count;
+        }
+
+        //获取待入职员工
+        public List<StaffViewModel> GetDaiRuStaff(int ZhiId)
+        {
+            string sql = $"select InfoName from StaffInfo where ZhiweiIdFor = {ZhiId}";
+
+            List<StaffViewModel> data = QueryCha(sql);
+            return data;
         }
     }
 }

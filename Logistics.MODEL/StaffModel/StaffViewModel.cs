@@ -8,6 +8,7 @@ namespace Logistics.MODEL.Staff
 {
     public class StaffViewModel
     {
+        public int InfoId { get; set; }
         public string InfoName { get; set; }
         public int InfoSex { get; set; }
         public string BumenName { get; set; }

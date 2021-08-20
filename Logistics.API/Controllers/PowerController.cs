@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Logistics.IDAL;
 using Logistics.MODEL;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Logistics.API.Controllers
 {
@@ -14,6 +15,7 @@ namespace Logistics.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class PowerController : ControllerBase
     {
         IPower power;

@@ -6,6 +6,6 @@ namespace Logistics.IDAL
 {
     public interface IUser
     {
-        string Login(UserModel m,string sql);//登录
+        UserModel Login(UserModel m,string sql);//登录
     }
 }

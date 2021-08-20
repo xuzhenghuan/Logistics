@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Logistics.MODEL;
 using Logistics.IDAL;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Logistics.API.Controllers
 {
@@ -14,6 +15,7 @@ namespace Logistics.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class CarController : ControllerBase
     {
         ICar car;
@@ -36,7 +38,7 @@ namespace Logistics.API.Controllers
         [Route("GetCarInfo")]
         [HttpGet]
         //查询
-        public IActionResult GetCarInfo(string carType, string carNumber, string userName, string company,int pageIndex = 1, int size = 3)
+        public IActionResult GetCarInfo(string carType, string carNumber, string userName, string company,int pageIndex = 1, int size = 4)
         {
             int count;
 

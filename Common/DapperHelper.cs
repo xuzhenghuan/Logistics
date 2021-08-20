@@ -24,5 +24,11 @@ namespace Logistics.Common
             List<T> data = conn.Query<T>(sql).ToList();
             return data;
         }
+        //删除
+        public int CommandDel(string sql,int id)
+        {
+            int count = conn.Execute(sql, new { @id=id });
+            return count;
+        }
     }
 }
