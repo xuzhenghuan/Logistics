@@ -17,10 +17,10 @@ namespace Logistics.Common.Filter
     /// </summary>
     public class CustomerExceptionFilter : IAsyncExceptionFilter
     {
-        public Logger<CustomerExceptionFilter> logger;
-        public CustomerExceptionFilter(Logger<CustomerExceptionFilter> _logger)
+        readonly ILogger<CustomerExceptionFilter> logger;
+        public CustomerExceptionFilter(ILogger<CustomerExceptionFilter> _logger)
         {
-            logger = _logger;
+            this.logger = _logger;
         }
         /// <summary>
         /// 重写OnExceptionAsync方法，定义自己的处理逻辑
@@ -49,7 +49,7 @@ namespace Logistics.Common.Filter
                     Content = JsonConvert.SerializeObject(result)
                 };
             }
-            // 设置为true，表示异常已经被处理了
+            // 设置为true，表示异常已经被处理了 返回指定格式
             context.ExceptionHandled = true;
             return Task.CompletedTask;
         }

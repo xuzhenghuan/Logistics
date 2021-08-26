@@ -19,15 +19,17 @@ namespace Logistics.DAL
         
         public UserModel Login(UserModel m,string sql)
         {
-
+            //827ccb0eea8a706c4c34a16891f84e7b
+            //827ccb0eea8a706c4c34a16891f84e7b
+            //
             m.UserPwd = MD5Helper.MD5Encrypt(m.UserPwd);//利用md5进行密码加密
             //参数化
             var par = new { @a = m.UserName, @b = m.UserPwd };
 
             //执行查询语句
-            UserModel data = conn.Query<UserModel>(sql,par).FirstOrDefault();//多的该用户的权限信息
+            UserModel data = conn.Query<UserModel>(sql, par).First();//多的该用户的权限信息
 
-            if(data==null)
+            if(data.UserName==null)
             {
                 return null;//表示查询不到改账号信息
             }
@@ -42,7 +44,7 @@ namespace Logistics.DAL
                 new Claim(JwtRegisteredClaimNames.Iss,"徐征欢"),
                 new Claim(JwtRegisteredClaimNames.Aud,"张三"),
                 new Claim("Guid", Guid.NewGuid().ToString("D")),
-                new Claim(ClaimTypes.Role, m.UserRoles)
+                new Claim(ClaimTypes.Role, data.UserRoles)
             };
 
             SecurityToken securityToken = new JwtSecurityToken(

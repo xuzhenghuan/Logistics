@@ -36,7 +36,7 @@ namespace Logistics.API.Controllers
         [Route("Login")]
         public IActionResult Login(UserModel m)
         {
-            string sql = "select UserRoles from Users where UserName = @a and UserPwd = @b";
+            string sql = "select * from Users where UserName = @a and UserPwd = @b";
 
             //调用userdal方法实现查询用户
             UserModel roles = user.Login(m, sql);

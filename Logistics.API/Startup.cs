@@ -21,6 +21,8 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
 using Logistics.Common.Filter;
+using Autofac;
+using System.Reflection;
 
 namespace Logistics.API
 {
@@ -40,13 +42,10 @@ namespace Logistics.API
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IUser, UserDal>();//添加用户注入服务
-            services.AddSingleton<IRole, RoleDal>();//角色注入
-            services.AddSingleton<IPower, PowerDal>();//菜单注入
-            services.AddSingleton<ICar, CarDal>();//车辆注入
-            services.AddSingleton<IStaffInfo, StaffInfoDal>();//员工登录服务注入
-            services.AddSingleton<IStaffBumen, StaffBumenDal>();//部门信息服务注入
-            services.AddSingleton<IStaffHired, StaffHiredDal>();//入职员工服务注入
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<CustomerExceptionFilter>();
+            });
 
 
             Connection.MSSql = Configuration.GetConnectionString("default");//获取json文件中数据库连接字符串存入connection类中mssql字段
@@ -86,10 +85,6 @@ namespace Logistics.API
                     });
             });
 
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(new CustomerExceptionFilter());
-            });
 
             //services.AddControllers(options =>
             //{
@@ -155,6 +150,22 @@ namespace Logistics.API
             {
                 endpoints.MapControllers();
             });
+        }
+
+
+        /// <summary>
+        /// 使用第三方ioc容器 autofac实现注入服务
+        /// </summary>
+        /// <param name="builder"></param>
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            //单个注入builder.RegisterType<UserDal>().As<IUser>();
+
+            Assembly server = Assembly.Load("Logistics.DAL");//获取你实现类的命名空间
+
+            builder.RegisterAssemblyTypes(server)
+                .AsImplementedInterfaces()
+                .InstancePerDependency();       //实现批量注入
         }
     }
 }

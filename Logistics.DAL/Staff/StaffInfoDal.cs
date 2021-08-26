@@ -65,7 +65,7 @@ namespace Logistics.DAL.Staff
         //获取待入职员工
         public List<StaffViewModel> GetDaiRuStaff(int ZhiId)
         {
-            string sql = $"select InfoName from StaffInfo where ZhiweiIdFor = {ZhiId}";
+            string sql = $"select InfoName from StaffInfo where ZhiweiIdFor = {ZhiId} and InfoZhuang = 0";
 
             List<StaffViewModel> data = QueryCha(sql);
             return data;
