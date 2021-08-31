@@ -89,8 +89,8 @@ namespace Logistics.API.Controllers
         /// 查询已入职的员工
         /// </summary>
         /// <returns></returns>
-        [HttpGet,Route("GetRuStaffInfo")]
-        public IActionResult GetRuStaffInfo()
+        [HttpGet,Route("GetEntryStaffInfo")]
+        public IActionResult GetEntryStaffInfo()
         {
             List<StaffHired> data = sta3.GetRuStaffInfo();
             return Ok(new { data = data, message = "查询成功" });
@@ -101,8 +101,8 @@ namespace Logistics.API.Controllers
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        [HttpPost,Route("AddHiredStaff")]
-        public IActionResult AddHiredStaff(StaffHired m)
+        [HttpPost,Route("AddEntryStaff")]
+        public IActionResult AddEntryStaff(StaffHired m)
         {
             int count = sta3.AddHiredStaff(m);
             if(count>0)
@@ -117,8 +117,8 @@ namespace Logistics.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet,Route("GetDaiRuStaff")]
-        public IActionResult GetDaiRuStaff(int id)
+        [HttpGet,Route("GetTrainee")]
+        public IActionResult GetTrainee(int id)
         {
             List<StaffViewModel> data = sta.GetDaiRuStaff(id);
             if(data!=null)
@@ -133,8 +133,8 @@ namespace Logistics.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost,Route("GetStaffHired")]
-        public IActionResult GetStaffHired(int id)
+        [HttpPost,Route("GetEntryStaff")]
+        public IActionResult GetEntryStaff(int id)
         {
             StaffHired data = sta3.GetStaffHiredInfo(id);
             if(data!=null)
