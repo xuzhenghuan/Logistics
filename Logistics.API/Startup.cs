@@ -23,6 +23,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Logistics.Common.Filter;
 using Autofac;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Logistics.API
 {
@@ -70,6 +71,18 @@ namespace Logistics.API
                         ValidateLifetime = true,//是否验证过期时间，过期了就拒绝访问
                         ClockSkew = TimeSpan.Zero,//这个是缓冲过期时间，也就是说，即使我们配置了过期 时间，这里也要考虑进去，过期时间+缓冲，默认好像是7分钟，你可以直接设置为0
                         RequireExpirationTime = true,
+                    };
+                    o.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            //检测到jwt过期，则在返回头信息中添加一个自定义件
+                            if (context.Exception.GetType() == typeof(SecurityTokenEncryptionFailedException))
+                            {
+                                context.Response.Headers.Add("act", "expired");
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 
@@ -165,7 +178,8 @@ namespace Logistics.API
 
             builder.RegisterAssemblyTypes(server)
                 .AsImplementedInterfaces()
-                .InstancePerDependency();       //实现批量注入
+                .InstancePerDependency();  //瞬态     //实现批量注入
+                                           //SingleInstance 单例
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Logistics.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CarController : ControllerBase
     {
         ICar car;
@@ -81,8 +81,8 @@ namespace Logistics.API.Controllers
         /// </summary>
         /// <param name="id">车辆的id</param>
         /// <returns></returns>
-        [HttpPost,Route("UpdateCar")]
-        public IActionResult UpdateCar(int id)
+        [HttpPost,Route("LookCarInfo")]
+        public IActionResult LookCarInfo(int id)
         {
             CarModel data = car.UpdateCar(id);
             return Ok(data);

@@ -27,5 +27,13 @@ namespace Logistics.DAL.Staff
             int count = Command(sql, m);
             return count;
         }
+
+        //用户入职详细信息
+        public StaffHired GetStaffHiredInfo(int Htid)
+        {
+            string sql = "select * from HiredTable where HtId = @Htid";
+            StaffHired data = GetInfo_Id(sql, Htid);
+            return data;
+        }
     }
 }
