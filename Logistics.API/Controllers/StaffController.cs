@@ -127,5 +127,21 @@ namespace Logistics.API.Controllers
             }
             return Ok(null);
         }
+
+        /// <summary>
+        /// 审批入职员工信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost,Route("GetStaffHired")]
+        public IActionResult GetStaffHired(int id)
+        {
+            StaffHired data = sta3.GetStaffHiredInfo(id);
+            if(data!=null)
+            {
+                return Ok(new { code = 200, message = "查询成功", data = data });
+            }
+            return Ok(new { code = 201, message = "查询失败" });
+        }
     }
 }

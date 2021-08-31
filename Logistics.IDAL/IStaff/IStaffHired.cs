@@ -13,5 +13,7 @@ namespace Logistics.IDAL.IStaff
         public List<StaffHired> GetRuStaffInfo();
         //添加入职员工信息
         public int AddHiredStaff(StaffHired m);
+
+        public StaffHired GetStaffHiredInfo(int Htid);
     }
 }

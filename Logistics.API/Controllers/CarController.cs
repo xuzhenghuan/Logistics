@@ -15,7 +15,7 @@ namespace Logistics.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CarController : ControllerBase
     {
         ICar car;

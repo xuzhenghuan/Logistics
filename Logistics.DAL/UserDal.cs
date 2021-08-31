@@ -43,13 +43,13 @@ namespace Logistics.DAL
             var claims = new Claim[] {
                 new Claim(JwtRegisteredClaimNames.Iss,"徐征欢"),
                 new Claim(JwtRegisteredClaimNames.Aud,"张三"),
-                new Claim("Guid", Guid.NewGuid().ToString("D")),
                 new Claim(ClaimTypes.Role, data.UserRoles)
             };
 
+            //生成签名
             SecurityToken securityToken = new JwtSecurityToken(
                 signingCredentials: securityKey,
-                expires: DateTime.Now.AddMinutes(2),//过期时间
+                expires: DateTime.Now.AddMinutes(1),//过期时间 单位(分钟)
                 claims: claims
                 );
 

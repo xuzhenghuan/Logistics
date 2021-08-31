@@ -30,5 +30,12 @@ namespace Logistics.Common
             int count = conn.Execute(sql, new { @id=id });
             return count;
         }
+        //详情
+        public T GetInfo_Id(string sql,int HtId)
+        {
+            T data = conn.Query<T>(sql, new { @HtId=HtId }).SingleOrDefault();
+
+            return data;
+        }
     }
 }

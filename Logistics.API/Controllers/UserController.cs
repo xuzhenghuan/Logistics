@@ -52,6 +52,5 @@ namespace Logistics.API.Controllers
             return Ok(new { data = roles });
 
         }
-        
     }
 }
