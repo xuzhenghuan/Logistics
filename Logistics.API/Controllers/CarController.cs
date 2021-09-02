@@ -19,9 +19,11 @@ namespace Logistics.API.Controllers
     public class CarController : ControllerBase
     {
         ICar car;
-        public CarController(ICar _car)
+        IShipper sip;
+        public CarController(ICar _car,IShipper _sip)
         {
             car = _car;
+            sip = _sip;
         }
 
 
@@ -102,6 +104,37 @@ namespace Logistics.API.Controllers
                 return Ok(new { code = 1, message = "修改成功" });
             }
             return Ok(new { code = 0, message = "修改失败" });
+        }
+
+
+        /// <summary>
+        /// 获取货主信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet,Route("GetShipper")]
+        public IActionResult GetShipper()
+        {
+            List<ShipperModel> data = sip.GetShipper();
+            return Ok(new { data = data, message = "查询成功" });
+        }
+
+        /// <summary>
+        /// 删除货主信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost,Route("DelShipper")]
+        public IActionResult DelShipper(int id)
+        {
+            int count = sip.DelShipper(id);
+            return Ok(new { code = count, message = "执行成功" });
+        }
+
+        [HttpPost,Route("GetShipperInf")]
+        public IActionResult GetShipperInf(int id)
+        {
+            ShipperModel m = sip.GetShipperInfo(id);
+            return Ok(new { data = m });
         }
     }
 }

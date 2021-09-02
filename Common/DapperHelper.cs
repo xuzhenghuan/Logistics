@@ -25,15 +25,15 @@ namespace Logistics.Common
             return data;
         }
         //删除
-        public int CommandDel(string sql,int id)
+        public int CommandDel(string sql,object id)
         {
-            int count = conn.Execute(sql, new { @id=id });
+            int count = conn.Execute(sql,id);
             return count;
         }
         //详情
-        public T GetInfo_Id(string sql,int HtId)
+        public T GetInfo_Id(string sql,object HtId)
         {
-            T data = conn.Query<T>(sql, new { @HtId=HtId }).SingleOrDefault();
+            T data = conn.Query<T>(sql,HtId).SingleOrDefault();
 
             return data;
         }
