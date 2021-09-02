@@ -58,7 +58,7 @@ namespace Logistics.DAL.Staff
         {
             string sql = "delete from StaffInfo where InfoId = @id";
 
-            int count = CommandDel(sql, id);
+            int count = CommandDel(sql, new { @id=id });
             return count;
         }
 
