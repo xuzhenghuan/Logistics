@@ -38,5 +38,22 @@ namespace Logistics.DAL
 
             return data;
         }
+
+        public ChargeModel GetChargeInfo(int id)
+        {
+            string sql = "select * from ChargeTable where ChargainId = @id";
+
+            ChargeModel data = GetInfo_Id(sql, new { @id = id });
+
+            return data;
+        }
+
+        public int UpdateChargain(ChargeModel m)
+        {
+            string sql = "update ChargeTable set ChargeNumber=@ChargeNumber,ChargeCompany=@ChargeCompany,ChargeType=@ChargeType,ChargeDunwei=@ChargeDunwei,ChargePrice=@ChargePrice,ChargeMoney=@ChargeMoney,ChargeDate=@ChargeDate,ChargeWomen=@ChargeWomen,ChargeCreatedate=@ChargeCreatedate,ChargeBei=@ChargeBei,ChargeZhuang=@ChargeZhuang,ChargeRen=@ChargeRen,ChargeHedate=@ChargeHedate where ChargeId=@ChargeId";
+
+            int count = Command(sql, m);
+            return count;
+        }
     }
 }

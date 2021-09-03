@@ -9,7 +9,7 @@ namespace Logistics.IDAL
 {
     public interface IShipperBargain
     {
-        List<ShipperBargainModel> GetShipperBargain();
+        List<ShipperBargainModel> GetShipperBargain(string name);
 
         int DelShipperBargain(int id);
 

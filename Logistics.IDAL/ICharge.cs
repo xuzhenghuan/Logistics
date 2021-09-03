@@ -18,5 +18,9 @@ namespace Logistics.IDAL
         int DelCharge(int id);
 
         int AddCharge(ChargeModel m);
+
+        ChargeModel GetChargeInfo(int id);
+
+        int UpdateChargain(ChargeModel m);
     }
 }
