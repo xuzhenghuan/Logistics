@@ -26,9 +26,9 @@ namespace Logistics.DAL
             return count;
         }
 
-        public List<ShipperBargainModel> GetShipperBargain()
+        public List<ShipperBargainModel> GetShipperBargain(string name)
         {
-            string sql = "select * from ShipperBargain";
+            string sql = $"select * from ShipperBargain where sBshipper like '%{name}%'";
             List<ShipperBargainModel> data = QueryCha(sql);
             return data;
         }

@@ -12,73 +12,73 @@ namespace Logistics.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BargainController : ControllerBase
+    public class PaymentController : ControllerBase
     {
-        private readonly IShipperBargain bar;
-        
-        public BargainController(IShipperBargain _bar,ICharge _cha)
+        private readonly IPayment pay;
+
+        public PaymentController(IPayment _pay)
         {
-            this.bar = _bar;
-            
+            this.pay = _pay;
+
         }
 
         /// <summary>
-        /// 获取货主合同信息
+        /// 付款信息
         /// </summary>
         /// <returns></returns>
-        [HttpGet,Route("GetShipperBargain")]
-        public IActionResult GetShipperBargain(string name)
+        [HttpGet, Route("GetPayment")]
+        public IActionResult GetPayment(string name)
         {
             name += "";
-            List<ShipperBargainModel> data = bar.GetShipperBargain(name);
+            List<PaymentModel> data = pay.GetPayment(name);
             return Ok(new { data = data, message = "查询成功" });
         }
 
         /// <summary>
-        /// 删除货主合同信息
+        /// 删除付款信息
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost,Route("ShipperBarDel")]
-        public IActionResult ShipperBarDel(int id)
+        [HttpPost, Route("PaymentDel")]
+        public IActionResult PaymentBarDel(int id)
         {
-            int count = bar.DelShipperBargain(id);
+            int count = pay.DelPayment(id);
             return Ok(new { code = count, message = "执行完毕" });
         }
 
         /// <summary>
-        /// 货主添加
+        /// 付款添加
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        [HttpPost,Route("AddShipperBargain")]
-        public IActionResult AddShipperBargain(ShipperBargainModel m)
+        [HttpPost, Route("AddPayment")]
+        public IActionResult AddPayment(PaymentModel m)
         {
-            int count = bar.AddShipperBargain(m);
+            int count = pay.AddPayment(m);
             return Ok(new { code = count, message = "成功执行" });
         }
 
         /// <summary>
-        /// 货主信息查询
+        /// 付款查询
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost, Route("GetShipperInfo")]
-        public IActionResult GetShipperInfo(int id)
+        [HttpPost, Route("GetPaymentInfo")]
+        public IActionResult GetPaymentInfo(int id)
         {
-            ShipperBargainModel data = bar.GetShipperInfo(id);
+            PaymentModel data = pay.GetPaymentInfo(id);
             return Ok(new { data = data, message = "执行成功" });
         }
 
         /// <summary>
-        /// 修改货主信息
+        /// 付款信息详细
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        [HttpPost,Route("UpdateShipperBargain")]
-        public IActionResult UpdateShipperBargain(ShipperBargainModel m)
+        [HttpPost, Route("UpdatePayment")]
+        public IActionResult UpdatePayment(PaymentModel m)
         {
-            int count = bar.UpdateShipper(m);
+            int count = pay.UpdatePayment(m);
             return Ok(new { code = count, message = "执行成功" });
         }
     }
